@@ -18,7 +18,7 @@
 int main(int ac __attribute__((unused)), char **av __attribute__((unused))
 , char **env)
 {
-	char *buffer = NULL, *command[8] = {0}, *args = NULL;
+	char *buffer = NULL, *args = NULL, *command[8] = {0};
 	size_t len = 0;
 	ssize_t bytes = 0;
 	int child, stat, flag = 1, exitcode;
@@ -34,6 +34,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused))
 			exitcode = WEXITSTATUS(stat);
 			if (exitcode == 55)
 				exit(0);
+			if (exitcode != 0)
+				exit(exitcode);
 		}
 	}
 	return (0);

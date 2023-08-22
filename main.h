@@ -11,6 +11,7 @@
 
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
+int _atoi(char *s);
 void execution(ssize_t bytes, size_t len, char *args, char *buffer
 , char *command[], char **environment);
 

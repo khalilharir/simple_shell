@@ -29,20 +29,22 @@ void execution(ssize_t bytes, size_t len, char *args, char *buffer
 	args = strtok(buffer, " ");
 	command[0] = args;
 	command[6] = "/usr/";
-	if (_strcmp(command[0], "exit") == 0)
-		exit(55);
-	if (_strcmp(command[0], "env") == 0)
-		while (environment != NULL)
-		{
-			printf("%s\n", *environment);
-			environment++;
-		}
 	while (args != NULL)
 	{
 		args = strtok(NULL, " ");
 		command[i] = args;
 		i++;
 	}
+	if (_strcmp(command[0], "exit") == 0 && !command[1])
+		exit(55);
+	if (_strcmp(command[0], "exit") == 0 && command[1] != NULL)
+		exit(_atoi(command[1]));
+	if (_strcmp(command[0], "env") == 0)
+		while (environment != NULL)
+		{
+			printf("%s\n", *environment);
+			environment++;
+		}
 	if (bytes == -1)
 		perror("Error:");
 	if (execve(command[0], command, environment) == -1)
