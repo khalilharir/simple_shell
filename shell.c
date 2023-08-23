@@ -32,9 +32,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused))
 		{
 			wait(&stat);
 			exitcode = WEXITSTATUS(stat);
-			if (exitcode == 55)
-				exit(0);
-			if (exitcode != 0)
+			if (exitcode != 1)
 				exit(exitcode);
 		}
 	}
