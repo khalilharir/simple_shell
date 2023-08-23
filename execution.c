@@ -16,19 +16,21 @@
  * @buffer : Buffer where the input is stored.
  * @command : Array where the commands are stored.
  * @environment : The array that holds environment variables.
- * Return: 1 on success..
+ * Return: Void..
  */
-int execution(ssize_t bytes, size_t len, char *args, char *buffer
+void execution(ssize_t bytes, size_t len, char *args, char *buffer
 , char *command[], char **environment)
 {
 	int i = 1;
 
 	write(1, "$ ", 2);
 	bytes = getline(&buffer, &len, stdin);
+	if (bytes == -1)
+		perror("Error:");
 	buffer[bytes - 1] = '\0';
 	args = strtok(buffer, " ");
 	command[0] = args;
-	command[6] = "/usr/";
+	command[18] = "/usr/";
 	while (args != NULL)
 	{
 		args = strtok(NULL, " ");
@@ -36,7 +38,7 @@ int execution(ssize_t bytes, size_t len, char *args, char *buffer
 		i++;
 	}
 	if (_strcmp(command[0], "exit") == 0 && !command[1])
-		exit(0);
+		exit(55);
 	if (_strcmp(command[0], "exit") == 0 && command[1] != NULL)
 		exit(_atoi(command[1]));
 	if (_strcmp(command[0], "env") == 0)
@@ -45,9 +47,6 @@ int execution(ssize_t bytes, size_t len, char *args, char *buffer
 			printf("%s\n", *environment);
 			environment++;
 		}
-	if (bytes == -1)
-		perror("Error:");
 	if (execve(command[0], command, environment) == -1)
 		perror("./hsh");
-	return (1);
 }
